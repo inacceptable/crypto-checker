@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	{% load static %}
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Crypto tracker</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel='stylesheet' type='text/css' href="{% static 'css/style.css' %}"/>
+</head>
+<body>
+	<div class='search'> 
+		<input type='text' id='search-box' placeholder="Search for a coin... "/>
+		<div style='width:100%; padding:1%; margin-top: 0.5%; background-color:black; border-radius:5px'><a style='font-size:2.5em; color:white; cursor:pointer;' id='search-button'>Search</a></div>
+		<script type="text/javascript">
+			$("#search-button").click(function() {
+			            var search_result = $('#search-box').val(); 
+			            $.ajax({
+			                type: 'GET',
+			                url: "{% url 'search' %}",
+			                data: {
+			                    'search_result' : search_result
+			                },
+			                success: function(data) {
+			                	var coin_name = data.apiresult.name; 
+			                	var current_price = data.apiresult.market_data.current_price.usd;
+			                	var market_cap_rank = data.apiresult.market_cap_rank; 
+			                	var market_cap = data.apiresult.market_data.market_cap.usd; 
+			                	var image = data.apiresult.image.small; 
+			                	$('.top-100').fadeOut(300);
+			                	$('.searched_coin').fadeIn(300);
+								$('.searched_coin_title').text("" + coin_name);
+								$('.searched_coin_current_price').text("Current Price: " + current_price);
+								$('.searched_coin_market_cap').text("Market cap: " + market_cap);
+								$('.searched_coin_market_cap_rank').text("Market cap rank: " + market_cap_rank);
+								$('.searched_coin_image').attr("src", image);
+
+
+			                }
+			            });
+			        });
+		</script>
+	</div>
+	<div class='coin-list-container'>
+		<div class="card searched_coin" id="searched_coin" style='display: none;'>
+	        	<img class="card-img-top searched_coin_image" src="{{i.image}}" alt="Card image cap">
+	        	<div class="card-body">
+	            	<h1 class="card-title searched_coin_title"></h1>
+	            	<h3 class="searched_coin_current_price"><b>Current price: $</b></h3>
+	            	<h3 class='searched_coin_market_cap'><b>Market Cap:</b></h3>
+	            	<h3 class='searched_coin_market_cap_rank'><b>Market cap rank: </b></h3>
+
+	        	</div>
+	    	</div>
+		<div class='top-100'> 
+			{% for i in apidata %}
+	    	<div class="card">
+	        	<img class="card-img-top" src="{{i.image}}" alt="Card image cap">
+	        	<div class="card-body">
+	            	<h3 class="card-title">{{i.name}}</h3>
+	            	<p><b>Current price:</b> ${{i.current_price}} </p>
+	            	<p><b>Market Cap:</b>{{i.market_cap}}</p>
+	            	<p><b>Market cap rank: </b>{{i.market_cap_rank}}</p>
+
+	        	</div>
+	    	</div>
+	    	{% endfor %}
+		</div>
+	    <script> 
+	    	var coin_list = [] 
+	    	{% for i in apidata_list %}
+	    		coin_list.push("{{i.id}}"); 
+	    	{% endfor %}
+
+	    	 $(function() {
+   
+            $( "#search-box" ).autocomplete({
+               source: coin_list
+            });
+         });
+	    </script> 
+	</div>
+</body>
+</html>

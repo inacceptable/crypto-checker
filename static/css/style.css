@@ -1,0 +1,75 @@
+
+.top-100{
+	margin: 0 auto; 
+	width: 80%;
+	padding: 3%; 
+	background-color: #2A2D43;
+	display: grid;
+	grid-template-columns: 20% 20% 20% 20% ;
+	grid-gap: 5px;
+	align-items: center;
+  justify-content: center;
+}
+.searched_coin
+{
+	width: 80%; 
+	margin: 0 auto;
+
+}
+body{
+	padding: 1.5%;
+}
+
+.card{
+	background-color: #F7FFF7;
+	text-align: center;
+	padding: 2.5%;
+	border: 6px solid #BBCDE5;
+	border-radius: 5px;
+}
+.card-body
+{
+	min-height: 170px;
+}
+.card img 
+{
+	width: 30px;
+	height: auto;
+}
+
+.search
+{	
+	width: 80%;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 3.5%;
+
+}
+
+#search-box{
+	padding: 4%;
+	width: 100%;
+	border-radius: 4px;
+	border: 7px solid #3A015C;
+	font-size: 2.5em;
+}
+
+@media only screen and (max-width: 1269px) {
+	.top-100{
+		grid-template-columns:40% 40%;
+	}
+}
+@media only screen and (max-width: 900px) {
+  .top-100
+  {
+  	grid-template-columns: 90%;
+  }
+  .card
+  {
+  	padding: 2%;
+  	border-radius: 5px;
+  }
+  .card-body{
+  	min-height: 0;
+  }
+}
