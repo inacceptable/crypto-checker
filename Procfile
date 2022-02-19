@@ -1,1 +1,1 @@
-web: gunicorn currentweather.wsgi 
+web: gunicorn cryptotracker.wsgi 
