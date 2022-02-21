@@ -9,7 +9,7 @@ def home(request):
 
 def home(request):
 	apidata_list = requests.get('https://api.coingecko.com/api/v3/coins/list').json() 
-	currencies = ['AED','ARS','AUD','BDT','BHD','BMD','BRL','CAD','CHF','CLP','CZK','DKK','GBP','HKD','HUF','ILS','INR','KWD','LKR','MMK','MXN','MYR','NGN','NOK','NZD','PHP','PKR','PLN','SAR','SEK','SGD','THB','TRY','UAH','VEF','VND','ZAR','XDR']
+	currencies = ['USD', 'AED','ARS','AUD','BDT','BHD','BMD','BRL','CAD','CHF','CLP','CZK','DKK','GBP','HKD','HUF','ILS','INR','KWD','LKR','MMK','MXN','MYR','NGN','NOK','NZD','PHP','PKR','PLN','SAR','SEK','SGD','THB','TRY','UAH','VEF','VND','ZAR','XDR']
 	default_currency = 'USD'
 	currency_choice = str(request.GET.get('currency_choice'))
 	if currency_choice in currencies: 
