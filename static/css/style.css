@@ -74,6 +74,7 @@ body{
 	padding: 4%;
 	width: 100%;
 	border-radius: 4px;
+	background-color: white;
 	border: 7px solid #3A015C;
 	font-size: 2.5em;
 }
@@ -89,7 +90,7 @@ body{
   	grid-template-columns: 90%;
   }
   .currency-button{
-  	width: 80%;
+  	width: 90%;
   	margin: 0 auto;
   	position: relative;
   }
