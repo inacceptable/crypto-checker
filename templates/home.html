@@ -20,7 +20,7 @@
 </head>
 <body>
 <div class="currency-button">
-	<p id='currency-button-choice'>{{default_currency}}  ⇕</p>
+	<p id='currency-button-choice'>{{default_currency}}</p>
 	<div class='currency-button-drop-down' style='display:none'>
 		{% for i in currencies %}
     	<div id='currency-button{{i}}'>{{i}}<hr/> </div>
@@ -37,8 +37,33 @@
                       	for (let i = 0; i<99;i++){
                       		$('#pricevalue'+data.apiresult[i].id).text("$" +data.apiresult[i].current_price);
                       		$('#currency-button-choice').text(currency_choice);
-                      		console.log(data.apiresult[i].name);
                       	}
+                      	if ($('#searched_coin').is(':visible')) {
+  									var currency_change_coin_id = document.getElementById("searched_coin_id").textContent;
+
+										$.ajax({
+										type: 'GET',
+										url: "{% url 'search' %}",
+										data: {
+										'search_result': currency_change_coin_id,
+										
+										},
+										success: function(data) {
+											var current_currency_choice = document.getElementById("currency-button-choice").textContent;
+			                	current_currency_choice = current_currency_choice.toString();
+			     					current_currency_choice = current_currency_choice.toLowerCase();
+										var current_price = data.apiresult.market_data.current_price[current_currency_choice];
+
+			                	if (current_price < 1){
+			                		var current_price = (current_price).toFixed(15);
+			                	}
+			                	else{
+			                		var current_price = (current_price).toFixed(3);
+			                	}
+			                	$('.searched_coin_current_price').text("Current Price: $" + current_price);
+										}
+										});
+								} 
                     }
                 });
 				});
@@ -46,7 +71,7 @@
     	</script>
     	{% endfor %}
 	</div>
-	
+
 	<script type="text/javascript">
 		$( ".currency-button" ).click(function() {
   		$( ".currency-button-drop-down" ).slideToggle(100);
@@ -55,7 +80,7 @@
 </div>
 	<div class='search'> 
 		<input type='text' id='search-box' placeholder="Search for a coin... "/>
-		<div style='width:100%; padding:1%; margin-top: 0.5%; background-color:black; border-radius:5px'><a style='font-size:2.5em; color:white; cursor:pointer;' id='search-button'>Search</a></div>
+		<div style='width:100%; padding:1%; margin-top: 0.5%; background-color:black; border-radius:5px'><a style='font-size:2.5em; user-select: none; color:white; cursor:pointer;' id='search-button'>Search</a></div>
 		<script type="text/javascript">
 			$("#search-button").click(function() {
 			            var search_result = $('#search-box').val(); 
@@ -67,7 +92,12 @@
 			                },
 			                success: function(data) {
 			                	var coin_name = data.apiresult.name; 
-			                	var current_price = data.apiresult.market_data.current_price.usd;
+			                	var coin_id = data.apiresult.id; 
+			                	var current_currency_choice = document.getElementById("currency-button-choice").textContent;
+			                	current_currency_choice = current_currency_choice.toString();
+			     					current_currency_choice = current_currency_choice.toLowerCase();
+			     				
+			                	var current_price = data.apiresult.market_data.current_price[current_currency_choice];
 			                	if (current_price < 1){
 			                		var current_price = (current_price).toFixed(15);
 			                	}
@@ -88,6 +118,7 @@
 								$('.searched_coin_current_price').text("Current Price: $" + current_price);
 								$('.searched_coin_market_cap').text("Market cap: " + market_cap);
 								$('.searched_coin_market_cap_rank').text("Market cap rank: " + market_cap_rank);
+								$('#searched_coin_id').text(coin_id);
 								$('.searched_coin_image').attr("src", image);
 
 
@@ -101,6 +132,7 @@
 	        	<img class="card-img-top searched_coin_image" src="{{i.image}}" alt="Card image cap">
 	        	<div class="card-body">
 	            	<h1 class="card-title searched_coin_title"></h1>
+	            	<h1 style='display:none;' id='searched_coin_id'></h1>
 	            	<h3 class="searched_coin_current_price"><b>Current price: $</b></h3>
 	            	<h3 class='searched_coin_market_cap'><b>Market Cap:</b></h3>
 	            	<h3 class='searched_coin_market_cap_rank'><b>Market cap rank: </b></h3>
