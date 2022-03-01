@@ -28,7 +28,9 @@ body{
 	padding: 1.5%;
 }
 
-
+.hide{
+	display: none;
+}
 .turn-arrow
 {
 	color: black;
@@ -129,7 +131,7 @@ body{
 		width: 100%;
 		grid-template-columns:40% 40%;
 	}
-	.search{
+	.search, .searched_coin{
   	width: 100%;
   }
 }
@@ -166,7 +168,7 @@ body{
   	margin-bottom: 3%;
 
   }
-  .search{
+  .search, .searched_coin{
   	width: 100%;
   }
   .currency-button{

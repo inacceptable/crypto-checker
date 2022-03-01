@@ -22,7 +22,7 @@
 <div class='currency-search-container'>
 	<div class="currency-button">
 	<p style='background-color:white; color:black'>Currency ⬍</p>
-	<p id='currency-button-choice'>{{default_currency}} <span id='currency-button-arrow'>+</span></p>
+	<p id='currency-button-choice'>{{default_currency}}<strong id='currency-button-arrow'>+</strong></p>
 	<div class='currency-button-drop-down' style='display:none'>
 		{% for i in currencies %}
     	<div id='currency-button{{i}}'>{{i}}<hr/> </div>
@@ -55,6 +55,7 @@
 			                	current_currency_choice = current_currency_choice.toString();
 			     					current_currency_choice = current_currency_choice.toLowerCase();
 										var current_price = data.apiresult.market_data.current_price[current_currency_choice];
+										console.log(current_price);
 
 			                	if (current_price < 1){
 			                		var current_price = (current_price).toFixed(15);
@@ -97,10 +98,13 @@
 			                	var coin_name = data.apiresult.name; 
 			                	var coin_id = data.apiresult.id; 
 			                	var current_currency_choice = document.getElementById("currency-button-choice").textContent;
+			                	var current_currency_choice = current_currency_choice.replace('+', '');
 			                	current_currency_choice = current_currency_choice.toString();
 			     					current_currency_choice = current_currency_choice.toLowerCase();
 			     				
 			                	var current_price = data.apiresult.market_data.current_price[current_currency_choice];
+			                	console.log(current_price);
+			                	console.log(current_currency_choice);
 			                	if (current_price < 1){
 			                		var current_price = (current_price).toFixed(15);
 			                	}
@@ -123,7 +127,7 @@
 								$('.searched_coin_market_cap_rank').text("Market cap rank: " + market_cap_rank);
 								$('#searched_coin_id').text(coin_id);
 								$('.searched_coin_image').attr("src", image);
-
+								$('.title-heading').hide();
 
 			                }
 			            });
