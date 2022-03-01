@@ -19,8 +19,10 @@
 	<link rel='stylesheet' type='text/css' href="{% static 'css/style.css' %}"/>
 </head>
 <body>
-<div class="currency-button">
-	<p id='currency-button-choice'>{{default_currency}}</p>
+<div class='currency-search-container'>
+	<div class="currency-button">
+	<p style='background-color:white; color:black'>Currency ⬍</p>
+	<p id='currency-button-choice'>{{default_currency}} <span id='currency-button-arrow'>+</span></p>
 	<div class='currency-button-drop-down' style='display:none'>
 		{% for i in currencies %}
     	<div id='currency-button{{i}}'>{{i}}<hr/> </div>
@@ -75,6 +77,7 @@
 	<script type="text/javascript">
 		$( ".currency-button" ).click(function() {
   		$( ".currency-button-drop-down" ).slideToggle(100);
+  		$("#currency-button-arrow").toggleClass("turn-arrow");
 		});
 	</script>
 </div>
@@ -127,6 +130,8 @@
 			        });
 		</script>
 	</div>
+</div>
+	
 	<div class='coin-list-container'>
 		<div class="card searched_coin" id="searched_coin" style='display: none;'>
 	        	<img class="card-img-top searched_coin_image" src="{{i.image}}" alt="Card image cap">
@@ -139,7 +144,9 @@
 
 	        	</div>
 	    	</div>
-		<div class='top-100'> 
+	    <h1 class='title-heading' >Top 100 coins by market cap </h1>
+	   <div class='top-100-wrapper'>
+		<div  class='top-100'> 
 			{% for i in apidata %}
 	    	<div class="card">
 	        	<img class="card-img-top" src="{{i.image}}" alt="Card image cap">
@@ -152,6 +159,7 @@
 	        	</div>
 	    	</div>
 	    	{% endfor %}
+		</div>
 		</div>
 	    <script> 
 	    	var coin_list = [] 

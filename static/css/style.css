@@ -10,6 +10,14 @@
 	align-items: center;
   justify-content: center;
 }
+.currency-search-container
+{
+	display: grid;
+	width: 80%;
+	margin: 0 auto;
+	margin-bottom: 4%;
+	grid-template-columns: 20% 80%; 
+}
 .searched_coin
 {
 	width: 80%; 
@@ -20,17 +28,23 @@ body{
 	padding: 1.5%;
 }
 
+
+.turn-arrow
+{
+	color: black;
+	display: none;
+}
+
 .currency-button
 {
 	cursor: pointer;
-	background-color: black;
+	background-color: #2a856b;
 	color: white;
 	font-size: 1.5em;
 	user-select: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 10%;
+	border: 3px solid black;
+	height: 75px;
+	width: 100%;
 	border-radius: 4px;
 
 }
@@ -40,7 +54,7 @@ body{
 	text-align: center;
 	height: 300px;
 	overflow-y: scroll;
-
+	border: 3px solid black;
 	background-color: #4e5463;
 
 }
@@ -63,10 +77,10 @@ body{
 
 .search
 {	
-	width: 80%;
+	width: 98%;
 	margin: 0 auto;
 	text-align: center;
-	margin-bottom: 3.5%;
+	margin-top: 0;
 
 }
 
@@ -80,18 +94,62 @@ body{
 	font-size: 2.5em;
 }
 
-@media only screen and (max-width: 1269px) {
+.title-heading{
+	width: 80%; 
+	margin: 0 auto;
+	text-align: left;
+	font-size: 5em;
+}
+
+@media only screen and (max-width: 1269px) 
+{	
+	.currency-search-container
+	{
+		width: 100%;
+		grid-template-columns: 100%;
+		align-content: center;
+	}
+
+	.title-heading
+	{
+		margin-top: 70px;
+		
+		width: auto;
+		
+		text-align: center;
+		font-size: 3.5em;
+	}
+	.currency-button{
+  	width: 100%;
+  	margin: 0 auto;
+  	position: relative;
+  	margin-bottom: 2%;
+  }
 	.top-100{
+		width: 100%;
 		grid-template-columns:40% 40%;
 	}
+	.search{
+  	width: 100%;
+  }
 }
 @media only screen and (max-width: 900px) {
+	.currency-search-container
+	{
+		width: 100%;
+		grid-template-columns: 100%;
+		align-content: center;
+	}
   .top-100
   {
-  	grid-template-columns: 90%;
+  	width: 100%;
+  	grid-template-columns: 100%;
+  	height: 600px;
+  	border-radius: 5px;
+  	overflow-y: scroll;
   }
   .currency-button{
-  	width: 90%;
+  	width: 100%;
   	margin: 0 auto;
   	position: relative;
   }
@@ -106,5 +164,12 @@ body{
   .currency-button-drop-down
   {
   	margin-bottom: 3%;
+
+  }
+  .search{
+  	width: 100%;
+  }
+  .currency-button{
+  	margin-bottom: 10%;
   }
 }
